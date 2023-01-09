@@ -6,4 +6,4 @@ const app = Express()
 app.use(Express.json())
 app.use(cors())
 
-export { app as midlewaresHandler }
+export { app as midlewaresExternal }

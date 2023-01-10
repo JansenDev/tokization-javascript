@@ -9,11 +9,13 @@ export class JwtImplement implements ICryptImplement {
         const token = JWT.sign(payload, sercret_key, { expiresIn: '15m' })
         return token
     }
-    
+
     encode(token: string): string {
         if (!sercret_key) throw new Error("Crear JWT_SECRET_KEY en las variables del sistema")
-        const verify = JWT.verify(token, sercret_key)
-        return String(verify)
+        const verify: any = JWT.verify(token, sercret_key)
+        delete verify.cvv
+        
+        return JSON.stringify(verify)
     }
 
 }

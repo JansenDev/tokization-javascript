@@ -34,10 +34,18 @@ const schemaHeaders = {
     })
 }
 
+const schemaCreditCardRoute = {
+    [Segments.BODY]: Joi.object().keys({
+        token: Joi.string().trim().min(16).max(16).required()
+    })
+}
+
 const validateTokenBodyRoute = celebrate(schemaTokenRoute)
 const validateHeaders = celebrate(schemaHeaders)
+const validateCreditCardBodyRoute = celebrate(schemaCreditCardRoute)
 
 export {
     validateTokenBodyRoute,
-    validateHeaders
+    validateHeaders,
+    validateCreditCardBodyRoute
 }

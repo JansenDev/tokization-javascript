@@ -1,6 +1,6 @@
 import { Joi, Segments, celebrate } from "celebrate";
 import { CARD_MONTH_MAX, EMAIL_SUFIX } from "../regex.util";
-import { validateCardNumber, validateYearCard } from "./validator.custom";
+import { validateAuthorization, validateCardNumber, validateYearCard } from "./validator.custom";
 
 
 const schemaTokenRoute = {
@@ -23,8 +23,21 @@ const schemaTokenRoute = {
     }).required()
 }
 
-const validateTokenRoute = celebrate(schemaTokenRoute)
+const schemaHeaders = {
+    [Segments.HEADERS]: Joi.object().keys({
+        host: Joi.string(),
+        'user-agent': Joi.string(),
+        'content-type': Joi.string(),
+        authorization: Joi.string().trim().required().custom(validateAuthorization),
+        accept: Joi.string(),
+        'content-length': Joi.string()
+    })
+}
+
+const validateTokenBodyRoute = celebrate(schemaTokenRoute)
+const validateHeaders = celebrate(schemaHeaders)
 
 export {
-    validateTokenRoute
+    validateTokenBodyRoute,
+    validateHeaders
 }

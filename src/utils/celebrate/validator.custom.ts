@@ -1,3 +1,4 @@
+import { TOKEN_SUFIX } from "../regex.util";
 import { checkLuhn } from "../utilities.util";
 
 interface CelebrateCustomFunction {
@@ -30,7 +31,21 @@ const validateYearCard: CelebrateCustomFunction = (year, helpers) => {
 
     return year
 }
+
+const validateAuthorization: CelebrateCustomFunction = (authorization, helpers) => {
+    const matchFormat = authorization.match(TOKEN_SUFIX)
+    const isEmpty = !matchFormat || matchFormat?.length === 0
+    
+    if (isEmpty) return helpers.error("any.custom", {
+        error: new Error("token format invalid")
+    })
+
+    const token_id = matchFormat[0].split("_")[2]
+    return token_id
+}
+
 export {
     validateCardNumber,
-    validateYearCard
+    validateYearCard,
+    validateAuthorization
 }

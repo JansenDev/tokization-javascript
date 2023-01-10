@@ -19,3 +19,9 @@ export const ALL_QUOTE_DOUBLE = /\"/g
  * + Match: Solo la primera comilla simple
  */
 export const QUOTE_SIMPLE = /'/
+
+/**
+ * Valida formato de token
+ * +match: Bearer pk_test_{16 digitos/numeros}
+ */
+export const TOKEN_SUFIX = /^Bearer\spk_test_[a-z0-9]{16}$/gi
